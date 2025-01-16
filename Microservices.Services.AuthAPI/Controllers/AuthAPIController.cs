@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Microservices.Services.AuthAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/auth")]
     [ApiController]
     public class AuthAPIController : ControllerBase
     {
@@ -14,6 +14,7 @@ namespace Microservices.Services.AuthAPI.Controllers
         public AuthAPIController(IAuthService authService)
         {
             _authService = authService;
+            _response = new();
         }
 
         [HttpPost("register")]

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microservices.MessageBus;
 using Microservices.Services.ShoppingCartAPI.Models;
 using Microservices.Services.ShoppingCartAPI.Models.Dto;
 using Microservices.Services.ShoppingCartAPI.Service.IService;
@@ -19,13 +20,17 @@ namespace Microservices.Services.ShoppingCartAPI.Controllers
         private readonly AppDbContext _db;
         private IProductService _productService;
         private ICouponService _couponService;
-        public CartAPIController(AppDbContext db, IMapper mapper, IProductService productService, ICouponService couponService)
+        private readonly IMessageBus _messageBus;
+        private IConfiguration _configuration;
+        public CartAPIController(AppDbContext db, IMapper mapper, IProductService productService, ICouponService couponService, IMessageBus messageBus, IConfiguration configuration)
         {
             _db = db;
             _mapper = mapper;
             _response = new();
             _productService = productService;
             _couponService = couponService;
+            _messageBus = messageBus;
+            _configuration = configuration;
         }
 
         [HttpGet("GetCart/{userId}")]
@@ -95,6 +100,22 @@ namespace Microservices.Services.ShoppingCartAPI.Controllers
                 cartFromDb.CouponCode = "";
                 _db.CartHeaders.Update(cartFromDb);
                 await _db.SaveChangesAsync();
+                _response.Result = true;
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.Message = ex.ToString();
+            }
+            return _response;
+        }
+
+        [HttpPost("EmailCartRequest")]
+        public async Task<object> EmailCartRequest([FromBody] CartDto cartDto)
+        {
+            try
+            {
+                await _messageBus.PublishMessage(cartDto, _configuration.GetValue<string>("TopicAndQueueNames:EmailShoppingCartQueue"));
                 _response.Result = true;
             }
             catch (Exception ex)

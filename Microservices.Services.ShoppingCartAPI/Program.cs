@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microservices.MessageBus;
 using Microservices.Services.ShoppingCartAPI.Service;
 using Microservices.Services.ShoppingCartAPI.Service.IService;
 using Microservices.Services.ShoppingCartAPI.Utility;
@@ -23,6 +24,7 @@ builder.Services.AddSingleton(mapper);
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICouponService, CouponService>();
+builder.Services.AddScoped<IMessageBus, MessageBus>();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<BackendApiAuthenticationHttpClientHandler>();
 builder.Services.AddHttpClient("Product", u => u.BaseAddress = new Uri(builder.Configuration["ServiceUrls:ProductAPI"])).AddHttpMessageHandler<BackendApiAuthenticationHttpClientHandler>();

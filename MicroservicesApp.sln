@@ -22,7 +22,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microservices.Services.Auth
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microservices.Services.ProductAPI", "Microservices.Services.ProductAPI\Microservices.Services.ProductAPI.csproj", "{1B97F4CE-0BFA-4E6B-9B5C-41145830F24A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microservices.Services.ShoppingCartAPI", "Microservices.Services.ShoppingCartAPI\Microservices.Services.ShoppingCartAPI.csproj", "{2661D03C-5D9E-4E47-B44E-876737D556E7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microservices.Services.ShoppingCartAPI", "Microservices.Services.ShoppingCartAPI\Microservices.Services.ShoppingCartAPI.csproj", "{2661D03C-5D9E-4E47-B44E-876737D556E7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microservices.MessageBus", "Microservices.MessageBus\Microservices.MessageBus.csproj", "{E6EB0E4C-F145-446B-9514-C02E3C1D5C12}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microservices.Services.EmailAPI", "Microservices.Services.EmailAPI\Microservices.Services.EmailAPI.csproj", "{F8D5FDAE-6495-4BFF-A537-254B7F9E9921}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -50,6 +54,14 @@ Global
 		{2661D03C-5D9E-4E47-B44E-876737D556E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2661D03C-5D9E-4E47-B44E-876737D556E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2661D03C-5D9E-4E47-B44E-876737D556E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6EB0E4C-F145-446B-9514-C02E3C1D5C12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6EB0E4C-F145-446B-9514-C02E3C1D5C12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6EB0E4C-F145-446B-9514-C02E3C1D5C12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6EB0E4C-F145-446B-9514-C02E3C1D5C12}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8D5FDAE-6495-4BFF-A537-254B7F9E9921}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8D5FDAE-6495-4BFF-A537-254B7F9E9921}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8D5FDAE-6495-4BFF-A537-254B7F9E9921}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8D5FDAE-6495-4BFF-A537-254B7F9E9921}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,6 +72,8 @@ Global
 		{482B6C92-CB40-4E77-909F-83D6B5D9CB9D} = {73C1A7E1-343F-41F0-80CD-B8B8DD41727A}
 		{1B97F4CE-0BFA-4E6B-9B5C-41145830F24A} = {73C1A7E1-343F-41F0-80CD-B8B8DD41727A}
 		{2661D03C-5D9E-4E47-B44E-876737D556E7} = {73C1A7E1-343F-41F0-80CD-B8B8DD41727A}
+		{E6EB0E4C-F145-446B-9514-C02E3C1D5C12} = {9965A7CF-A878-442B-A1E6-90EDF3D5AFF7}
+		{F8D5FDAE-6495-4BFF-A537-254B7F9E9921} = {73C1A7E1-343F-41F0-80CD-B8B8DD41727A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EA92B12C-883B-4701-805F-4725E3AB2F89}

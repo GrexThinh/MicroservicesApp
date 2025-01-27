@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace MicroservicesApp.Web.Models
+﻿namespace MicroservicesApp.Services.OrderAPI.Models.Dto
 {
     public class CartHeaderDto
     {
@@ -9,11 +7,8 @@ namespace MicroservicesApp.Web.Models
         public string? CouponCode { get; set; }
         public double Discount { get; set; }
         public double CartTotal { get; set; }
-        [Required]
         public string? Name { get; set; }
-        [Required]
         public string? Phone { get; set; }
-        [Required]
         public string? Email { get; set; }
     }
 }

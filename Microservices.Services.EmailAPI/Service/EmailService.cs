@@ -1,4 +1,5 @@
-﻿using Microservices.Services.EmailAPI.Models;
+﻿using Microservices.Services.EmailAPI.Message;
+using Microservices.Services.EmailAPI.Models;
 using Microservices.Services.EmailAPI.Models.Dto;
 using Microservices.Services.EmailAPI.Service;
 using MicroservicesApp.Services.EmailAPI.Data;
@@ -33,6 +34,12 @@ namespace Microservices.Services.EmailAPI.Services
             message.Append("</ul>");
 
             await LogAndEmail(message.ToString(), cartDto.CartHeader.Email);
+        }
+
+        public async Task LogOrderPlaced(RewardsMessage rewardsDto)
+        {
+            string message = "New Order Placed. <br/> Order ID : " + rewardsDto.OrderId;
+            await LogAndEmail(message, "dotnetmastery@gmail.com");
         }
 
         public async Task RegisterUserEmailAndLog(string email)

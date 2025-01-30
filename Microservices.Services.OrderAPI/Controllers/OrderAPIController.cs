@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microservices.MessageBus;
 using Microservices.Services.OrderAPI.Models;
 using Microservices.Services.OrderAPI.Models.Dto;
 using Microservices.Services.OrderAPI.Service.IService;
@@ -21,12 +22,16 @@ namespace Microservices.Services.OrderAPI.Controllers
         private IMapper _mapper;
         private readonly AppDbContext _db;
         private IProductService _productService;
-        public OrderAPIController(AppDbContext db, IProductService productService, IMapper mapper)
+        private readonly IMessageBus _messageBus;
+        private readonly IConfiguration _configuration;
+        public OrderAPIController(AppDbContext db, IProductService productService, IMapper mapper, IConfiguration configuration, IMessageBus messageBus)
         {
             _db = db;
+            _messageBus = messageBus;
             _productService = productService;
             _mapper = mapper;
             _response = new ResponseDto();
+            _configuration = configuration;
         }
 
         [Authorize]
@@ -108,6 +113,14 @@ namespace Microservices.Services.OrderAPI.Controllers
                 OrderHeader orderHeader = _db.OrderHeaders.First(u => u.OrderHeaderId == stripeRequestDto.OrderHeader.OrderHeaderId);
                 orderHeader.StripeSessionId = session.Id;
                 _db.SaveChanges();
+                RewardsDto rewardsDto = new()
+                {
+                    OrderId = orderHeader.OrderHeaderId,
+                    RewardsActivity = Convert.ToInt32(orderHeader.OrderTotal),
+                    UserId = orderHeader.UserId,
+                };
+                string topticName = _configuration.GetValue<string>("TopicAndQueueNames:OrderCreatedTopic");
+                await _messageBus.PublishMessage(rewardsDto, topticName);
                 _response.Result = stripeRequestDto;
 
             }

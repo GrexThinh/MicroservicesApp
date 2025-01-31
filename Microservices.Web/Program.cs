@@ -1,7 +1,7 @@
-using Microservices.Web.Service;
 using Microservices.Web.Service.IService;
-using Microservices.Web.Utility;
+using Microservices.Web.Service;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microservices.Web.Utility;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,26 +9,23 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddHttpClient();
-builder.Services.AddHttpClient<ITokenProvider, TokenProvider>();
-builder.Services.AddHttpClient<ICouponService, CouponService>();
 builder.Services.AddHttpClient<IProductService, ProductService>();
+builder.Services.AddHttpClient<ICouponService, CouponService>();
 builder.Services.AddHttpClient<ICartService, CartService>();
 builder.Services.AddHttpClient<IAuthService, AuthService>();
 builder.Services.AddHttpClient<IOrderService, OrderService>();
-
-SD.ProductAPIBase = builder.Configuration["ServiceUrls:ProductAPI"];
 SD.CouponAPIBase = builder.Configuration["ServiceUrls:CouponAPI"];
-SD.AuthAPIBase = builder.Configuration["ServiceUrls:AuthAPI"];
-SD.ShoppingCartAPIBase = builder.Configuration["ServiceUrls:ShoppingCartAPI"];
 SD.OrderAPIBase = builder.Configuration["ServiceUrls:OrderAPI"];
-
+SD.ShoppingCartAPIBase = builder.Configuration["ServiceUrls:ShoppingCartAPI"];
+SD.AuthAPIBase = builder.Configuration["ServiceUrls:AuthAPI"];
+SD.ProductAPIBase = builder.Configuration["ServiceUrls:ProductAPI"];
+builder.Services.AddScoped<ITokenProvider, TokenProvider>();
 builder.Services.AddScoped<IBaseService, BaseService>();
-builder.Services.AddScoped<ICouponService, CouponService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICartService, CartService>();
-builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
-builder.Services.AddScoped<ITokenProvider, TokenProvider>();
+builder.Services.AddScoped<ICouponService, CouponService>();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {

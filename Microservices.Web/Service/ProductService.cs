@@ -13,17 +13,18 @@ namespace Microservices.Web.Service
             _baseService = baseService;
         }
 
-        public async Task<ResponseDto?> CreateProductAsync(ProductDto productDto)
+        public async Task<ResponseDto?> CreateProductsAsync(ProductDto productDto)
         {
             return await _baseService.SendAsync(new RequestDto()
             {
                 ApiType = SD.ApiType.POST,
                 Data = productDto,
-                Url = SD.ProductAPIBase + "/api/product"
+                Url = SD.ProductAPIBase + "/api/product",
+                ContentType = SD.ContentType.MultipartFormData
             });
         }
 
-        public async Task<ResponseDto?> DeleteProductAsync(int id)
+        public async Task<ResponseDto?> DeleteProductsAsync(int id)
         {
             return await _baseService.SendAsync(new RequestDto()
             {
@@ -46,7 +47,7 @@ namespace Microservices.Web.Service
             return await _baseService.SendAsync(new RequestDto()
             {
                 ApiType = SD.ApiType.GET,
-                Url = SD.ProductAPIBase + "/api/product/GetByCode" + productCode
+                Url = SD.ProductAPIBase + "/api/product/GetByCode/" + productCode
             });
         }
 
@@ -59,13 +60,14 @@ namespace Microservices.Web.Service
             });
         }
 
-        public async Task<ResponseDto?> UpdateProductAsync(ProductDto productDto)
+        public async Task<ResponseDto?> UpdateProductsAsync(ProductDto productDto)
         {
             return await _baseService.SendAsync(new RequestDto()
             {
                 ApiType = SD.ApiType.PUT,
                 Data = productDto,
-                Url = SD.ProductAPIBase + "/api/product"
+                Url = SD.ProductAPIBase + "/api/product",
+                ContentType = SD.ContentType.MultipartFormData
             });
         }
     }

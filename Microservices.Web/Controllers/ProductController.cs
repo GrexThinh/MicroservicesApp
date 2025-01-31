@@ -14,6 +14,7 @@ namespace Microservices.Web.Controllers
             _productService = productService;
         }
 
+
         public async Task<IActionResult> ProductIndex()
         {
             List<ProductDto>? list = new();
@@ -34,15 +35,15 @@ namespace Microservices.Web.Controllers
 
         public async Task<IActionResult> ProductCreate()
         {
-			return View();
-		}
+            return View();
+        }
 
         [HttpPost]
         public async Task<IActionResult> ProductCreate(ProductDto model)
         {
             if (ModelState.IsValid)
             {
-                ResponseDto? response = await _productService.CreateProductAsync(model);
+                ResponseDto? response = await _productService.CreateProductsAsync(model);
 
                 if (response != null && response.IsSuccess)
                 {
@@ -70,14 +71,13 @@ namespace Microservices.Web.Controllers
             {
                 TempData["error"] = response?.Message;
             }
-
             return NotFound();
         }
 
         [HttpPost]
         public async Task<IActionResult> ProductDelete(ProductDto productDto)
         {
-            ResponseDto? response = await _productService.DeleteProductAsync(productDto.ProductId);
+            ResponseDto? response = await _productService.DeleteProductsAsync(productDto.ProductId);
 
             if (response != null && response.IsSuccess)
             {
@@ -88,7 +88,6 @@ namespace Microservices.Web.Controllers
             {
                 TempData["error"] = response?.Message;
             }
-
             return View(productDto);
         }
 
@@ -105,14 +104,13 @@ namespace Microservices.Web.Controllers
             {
                 TempData["error"] = response?.Message;
             }
-
             return NotFound();
         }
 
         [HttpPost]
         public async Task<IActionResult> ProductEdit(ProductDto productDto)
         {
-            ResponseDto? response = await _productService.UpdateProductAsync(productDto);
+            ResponseDto? response = await _productService.UpdateProductsAsync(productDto);
 
             if (response != null && response.IsSuccess)
             {
@@ -123,8 +121,8 @@ namespace Microservices.Web.Controllers
             {
                 TempData["error"] = response?.Message;
             }
-
             return View(productDto);
         }
+
     }
 }
